@@ -94,6 +94,10 @@ export default {
     const expanded = ref({});
 
     const fetchApodData = async () => {
+      console.log("Datos del APOD...");
+      console.log(`Fecha de inicio: ${startDate.value}`);
+      console.log(`Fecha de fin: ${endDate.value}`);
+
       try {
         const response = await api.get("/apod", {
           params: {
@@ -102,6 +106,7 @@ export default {
             end_date: endDate.value,
           },
         });
+        console.log("Respuesta recibida:", response.data);
         apodData.value = response.data;
         expanded.value = {};
       } catch (error) {

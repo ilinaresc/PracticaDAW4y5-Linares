@@ -35,11 +35,11 @@ export default {
 
 .welcome-container {
   text-align: center;
-  color: #000; /* Texto blanco */
+  color: #000;
 }
 
 .welcome-message {
-  font-size: 5rem; /* Aumenta el tamaño del texto */
+  font-size: 5rem;
   margin-bottom: 50px;
 }
 
@@ -47,7 +47,7 @@ export default {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 300px; /* Ajusta el tamaño de la imagen según sea necesario */
+  width: 300px;
   height: auto;
 }
 </style>

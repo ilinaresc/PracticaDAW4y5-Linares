@@ -6,9 +6,21 @@
           <q-card-section>
             <q-form @submit.prevent="fetchApodData">
               <div class="q-gutter-md">
-                <q-input v-model="startDate" label="Fecha Inicio (YYYY-MM-DD)" type="date" />
-                <q-input v-model="endDate" label="Fecha Fin (YYYY-MM-DD)" type="date" />
-                <q-input v-model="searchTerm" label="Buscar en Descripción" type="text" />
+                <q-input
+                  v-model="startDate"
+                  label="Fecha Inicio (YYYY-MM-DD)"
+                  type="date"
+                />
+                <q-input
+                  v-model="endDate"
+                  label="Fecha Fin (YYYY-MM-DD)"
+                  type="date"
+                />
+                <q-input
+                  v-model="searchTerm"
+                  label="Buscar en Descripción"
+                  type="text"
+                />
                 <q-btn label="Consultar" type="submit" color="primary" />
               </div>
             </q-form>
@@ -17,7 +29,13 @@
       </div>
       <div class="list">
         <div class="q-pa-md row items-start q-gutter-md">
-          <q-card v-for="item in filteredApodData" :key="item.date" class="my-card" flat bordered>
+          <q-card
+            v-for="item in filteredApodData"
+            :key="item.date"
+            class="my-card"
+            flat
+            bordered
+          >
             <template v-if="item.media_type === 'image'">
               <q-img :src="item.url" class="media-item">
                 <div class="absolute-bottom text-subtitle2 text-center">
@@ -39,7 +57,11 @@
                 round
                 flat
                 dense
-                :icon="expanded[item.date] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+                :icon="
+                  expanded[item.date]
+                    ? 'keyboard_arrow_up'
+                    : 'keyboard_arrow_down'
+                "
                 @click="toggleExpand(item.date)"
               />
             </q-card-actions>
@@ -59,31 +81,31 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
-import { api } from 'boot/axios';
+import { ref, computed } from "vue";
+import { api } from "boot/axios";
 
 export default {
-  name: 'ApodPage',
+  name: "ApodPage",
   setup() {
-    const startDate = ref('');
-    const endDate = ref('');
-    const searchTerm = ref('');
+    const startDate = ref("");
+    const endDate = ref("");
+    const searchTerm = ref("");
     const apodData = ref([]);
     const expanded = ref({});
 
     const fetchApodData = async () => {
       try {
-        const response = await api.get('/apod', {
+        const response = await api.get("/apod", {
           params: {
-            api_key: 'zN4wMdgG2BhW5spaWAHFeAnBvl3faDaDZc4DPqZY',
+            api_key: "zN4wMdgG2BhW5spaWAHFeAnBvl3faDaDZc4DPqZY",
             start_date: startDate.value,
-            end_date: endDate.value
-          }
+            end_date: endDate.value,
+          },
         });
         apodData.value = response.data;
         expanded.value = {};
       } catch (error) {
-        console.error('Error al consultar APOD:', error);
+        console.error("Error al consultar APOD:", error);
       }
     };
 
@@ -95,7 +117,7 @@ export default {
       if (!searchTerm.value) {
         return apodData.value;
       }
-      return apodData.value.filter(item =>
+      return apodData.value.filter((item) =>
         item.explanation.toLowerCase().includes(searchTerm.value.toLowerCase())
       );
     });
@@ -108,15 +130,16 @@ export default {
       fetchApodData,
       filteredApodData,
       expanded,
-      toggleExpand
+      toggleExpand,
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .bg-page {
-  background: url('https://i.pinimg.com/originals/9f/ea/c1/9feac1a4b56f22bdb2ca6926ff8c80db.jpg') no-repeat center center fixed;
+  background: url("https://i.pinimg.com/originals/9f/ea/c1/9feac1a4b56f22bdb2ca6926ff8c80db.jpg")
+    no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
   width: 100vw;
